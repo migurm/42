@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:35:52 by mrueda-m          #+#    #+#             */
-/*   Updated: 2023/11/11 19:54:24 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2023/11/11 23:35:58 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *str);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-
+char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strtrim(const char *s1, const char *set);
 #endif
