@@ -15,25 +15,22 @@
 int	ft_format(char c, va_list ap)
 {
 	if (c == 'c')
-		return (ft_putchar_fd(va_arg(ap, char), 1), 1);
+		return (ft_putchar(va_arg(ap, int)));
 	if (c == 's')
-		return (ft_putstr_fd(va_arg(ap, char *), 1), 1);
+		return (ft_putstr(va_arg(ap, char *)));
 	else if (c == 'p')
-		(void)0;
-	else if (c == 'd')
-		(void)0;
-	else if (c == 'i')
-		(void)0;
+        return ft_putpointer(va_arg(ap, void *));
+	else if ((c == 'd') || (c == 'i'))
+        return ft_putnbr(va_arg(ap, int));
 	else if (c == 'u')
-		(void)0;
+        return ft_putnbr_unsigned(va_arg(ap, unsigned int));
 	else if (c == 'x')
-		(void)0;
+        return ft_puthex(va_arg(ap, unsigned int), 0);
 	else if (c == 'X')
-		(void)0;
+        return ft_puthex(va_arg(ap, unsigned int), 1);
 	else if (c == '%')
-		(void)0;
+        return ft_putchar('%');
 }
-
 
 
 
