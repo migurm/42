@@ -6,7 +6,7 @@
 #    By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/14 17:15:25 by mrueda-m          #+#    #+#              #
-#    Updated: 2024/01/14 20:02:13 by mrueda-m         ###   ########.fr        #
+#    Updated: 2024/06/19 12:48:38 by mrueda-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBC		= ar -rcs
 NAME		= libftprintf.a
 RM			= rm -rf
 
-SRC			= ft_printf.c utils_printf.c
+SRC			= ft_printf.c utils_printf_a.c utils_printf_b.c
 
 SRC_OBJ		= $(SRC:.c=.o)
 

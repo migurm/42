@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:40:33 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/01/14 19:55:39 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:48:43 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,19 @@ int	ft_format(char c, va_list ap)
 	if (c == 's')
 		return (ft_putstr(va_arg(ap, char *)));
 	else if (c == 'p')
-        return ft_putpointer(va_arg(ap, void *));
+		return (ft_putpointer(va_arg(ap, void *)));
 	else if ((c == 'd') || (c == 'i'))
-        return ft_putnbr(va_arg(ap, int));
+		return (ft_putnbr(va_arg(ap, int)));
 	else if (c == 'u')
-        return ft_putnbr_unsigned(va_arg(ap, unsigned int));
+		return (ft_putnbr_unsigned(va_arg(ap, unsigned int)));
 	else if (c == 'x')
-        return ft_puthex(va_arg(ap, unsigned int), 0);
+		return (ft_puthex(va_arg(ap, unsigned int), 0));
 	else if (c == 'X')
-        return ft_puthex(va_arg(ap, unsigned int), 1);
+		return (ft_puthex(va_arg(ap, unsigned int), 1));
 	else if (c == '%')
-        return ft_putchar('%');
+		return (ft_putchar('%'));
+	return (-1);
 }
-
-
 
 int	ft_printf(char *str, ...)
 {

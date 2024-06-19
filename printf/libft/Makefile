@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: mrueda-m <mrueda-m@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/11 13:15:41 by mrueda-m          #+#    #+#              #
-#    Updated: 2023/11/11 19:52:25 by mrueda-m         ###   ########.fr        #
+#    Updated: 2024/06/19 12:40:22 by mrueda-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC			= ft_atoi.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
     ft_isprint.c ft_memset.c ft_strchr.c ft_strlcpy.c ft_strlen.c ft_strncmp.c \
 	ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_strlcat.c \
 	ft_memcmp.c ft_memchr.c ft_memcpy.c ft_bzero.c ft_memmove.c ft_calloc.c \
-	ft_strdup.c ft_substr.c
+	ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_itoa.c
 
 BONUS_SRC	= ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
 	ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \

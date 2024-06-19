@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: mrueda-m <mrueda-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:35:52 by mrueda-m          #+#    #+#             */
-/*   Updated: 2023/11/11 19:54:24 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:45:01 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
+char	*ft_itoa(int num);
 char	*ft_strchr(const char *str, int c);
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
@@ -40,5 +41,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *str);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-
+char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strtrim(const char *s1, const char *set);
 #endif
