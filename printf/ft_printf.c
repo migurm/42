@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:40:33 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/06/19 12:48:43 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:59:00 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_format(char c, va_list ap)
 	return (-1);
 }
 
-int	ft_printf(char *str, ...)
+int	ft_printf(char const *str, ...)
 {
 	int		i;
 	int		l;

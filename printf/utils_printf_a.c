@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 19:59:51 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/08/25 18:00:18 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:04:32 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_putpointer(void	*ptr)
 	len = 0;
 	if (ptr == NULL)
 	{
-		write(1, "(nil)", 5);
+		len += write(1, "(nil)", 5);
 	}
 	else
 	{
