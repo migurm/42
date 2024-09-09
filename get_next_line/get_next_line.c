@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:22:17 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/09 13:54:44 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:10:42 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ Devolver los segmentos del archivo necesarios hasta encontrar el salto de linea 
 Recibe: lo leido hasta ahora que estaba guardando estaticamente, y el file descriptor del archivo a leer
 Devuelve: la cadena de caracteres que puede contener \n
 */
+char    *rellenar_buffer_hasta_tener_NL_o_EOF(char *buffer, int fd)
+{
 
-
-
+}
 
 /*
 Copiar del buffer caracteres hasta encontrar el salto de línea (incluído)
@@ -27,7 +28,10 @@ Recibe: el buffer
 Devuelve: La linea (con el salto de linea)
 Si no encuentra el salto de linea en el buffer lo devuelve al completo
 */
+char    *extraer_linea(char *buffer)
+{
 
+}
 
 /*
 Quitar del buffer los caracteres que se encuentran antes del salto de linea (incluído)
@@ -35,7 +39,12 @@ Recibe: el antiguo buffer
 Devuelve: el nuevo buffer (el antiguo ha sido liberado con free)
 Si no hay salto de linea, se devuelve NULL.
 */
+char    *limpiar_estatica(char *old_buffer)
+{
+    char    *new_buffer;
 
+    return (new_buffer);
+}
 
 char    *get_next_line(int fd)
 {
