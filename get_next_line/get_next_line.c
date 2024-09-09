@@ -6,18 +6,71 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:22:17 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/09 09:46:14 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:54:44 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
 /*
-Aquí estará la función principal, la que implementa la lógica de lectura del archivo linea 
-por linea donde usaremos el buffer y trabajaremos con la memoria estática.
+Devolver los segmentos del archivo necesarios hasta encontrar el salto de linea o el final.
+Recibe: lo leido hasta ahora que estaba guardando estaticamente, y el file descriptor del archivo a leer
+Devuelve: la cadena de caracteres que puede contener \n
 */
 
-#include "get_next_line.h"
+
+
+
+/*
+Copiar del buffer caracteres hasta encontrar el salto de línea (incluído)
+Recibe: el buffer
+Devuelve: La linea (con el salto de linea)
+Si no encuentra el salto de linea en el buffer lo devuelve al completo
+*/
+
+
+/*
+Quitar del buffer los caracteres que se encuentran antes del salto de linea (incluído)
+Recibe: el antiguo buffer
+Devuelve: el nuevo buffer (el antiguo ha sido liberado con free)
+Si no hay salto de linea, se devuelve NULL.
+*/
+
 
 char    *get_next_line(int fd)
 {
-    
+    static char *buffer = NULL;
+    char *line;
+
+    if (fd < 0 || BUFFER_SIZE <= 0)
+        return (free(buffer), NULL);
+    buffer = rellenar_buffer_hasta_tener_NL_o_EOF(buffer, fd);
+    if (buffer == NULL)
+        return (NULL);
+    line = extraer_linea(buffer);
+    buffer = limpiar_estatica(buffer);
+    return (line);
+}
+
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+int main(void) {
+    char *file = "texto.txt";
+
+    int fd = open(file, O_RDONLY);
+
+    char *line;
+
+    line = get_next_line(fd);
+    printf("%s", line);
+    free(line);
+
+    line = get_next_line(fd);
+    printf("%s", line);
+    free(line);
+
+    close(fd);
+
+    return (42);
 }

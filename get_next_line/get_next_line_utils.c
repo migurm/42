@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:50:23 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/09 10:41:28 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:57:09 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ Recibe: Una cadena de caracteres
 Devuelve: El tamaño de la cadena, un unsigned int (un entero sin signo)
 Recorremos la cadena hasta que encuentre \0
 */
-unsigned int	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-    unsigned int i;
+	int	str_size;
 
-    i = 0;
-    while(!str)
-        i++;
-    return (i);    
+	str_size = -1;
+	while (str[++str_size])
+	{
+	}
+	return (str_size);
 }
 /*
-Para buscar el salto de linea
+Para buscar el salto de linea \n
 Requisitos:
 Encontrar la primera aparición de un caracter específico en una cadena
 Recibe: Una cadena (const char *) y el caracter a buscar (int c)
@@ -39,9 +40,18 @@ Devuelve: Un puntero a la primera ocurrencia del carácer en la cadena,
 si no lo encuentra, NULL
 Si c es \0 devuelve el puntero al final de la cadena
 */
-char			*ft_strchar(const char *str, int c)
+
+char	*ft_strchar(const char *str, int c)
 {
-    
+	int	index;
+
+	index = -1;
+	while (str[++index])
+	{
+		if (str[index] == (char) c)
+			return ((char *)&str[index]);
+	}
+	return (NULL);
 }
 /*
 Para duplicar la linea leida y trabajar con ella
@@ -50,12 +60,25 @@ Duplicar una cadena de caracteres
 Recibe: Una cadena (const char *)
 Devuelve: Un puntero a la nueva cadena duplicada (con memoria asignada dinámicamente, 
 si esta falla devuelve NULL)
-Asignamos memoria suficiente para una copia de la cadena original y la copia caracter
+Asignamos memoria suficiente para una copia de la cadena original y copiamos caracter
 por caracter
 */
-char			*ft_strdup(const char *str)
-{
 
+char	*ft_strdup(const char *str)
+{
+	int		size;
+	char	*new_str;
+	int		index;
+
+	index = -1;
+	size = ft_strlen(str);
+	new_str = (char *)malloc((size + 1) * sizeof(char));
+	if (new_str == NULL)
+		return (NULL);
+	while (str[++index])
+		new_str[index] = str[index];
+	new_str[index] = '\0';
+	return ((char *) &new_str[0]);
 }
 /*
 Para unir trozos de cadenas leidas del buffer con partes ya almacenadas
@@ -67,9 +90,21 @@ dinamicamente, si esta falla, NULL
 Combina las dos cadenas, asignando memoria para la nueva cadena, y copia el contenido
 de ambas. También ha de liberar la primera cadena str1 para evitar fugas de memoria.
 */
-char			*ft_strjoin(char *str1, char *str2)
+
+char	*ft_strjoin(char *str1, char *str2)
 {
-    
+    int		size;
+	char	*new_str;
+	int		index;
+
+
+	size = (ft_strlen(str1) + ft_strlen(str2));
+	new_str = (char *)malloc((size + 1) * sizeof(char));
+	if (new_str == NULL)
+		return (NULL);
+	while (str1[++index])
+		
+
 }
 
 
