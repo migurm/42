@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:50:23 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/09 14:13:03 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/09/10 09:24:13 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*ft_strchar(const char *str, int c)
 		if (str[index] == (char) c)
 			return ((char *)&str[index]);
 	}
+	if (str[index] == '\0')
+		return (str[index]);
 	return (NULL);
 }
 /*
@@ -97,13 +99,11 @@ char	*ft_strjoin(char *str1, char *str2)
 	char	*new_str;
 	int		index;
 
-
 	size = (ft_strlen(str1) + ft_strlen(str2));
 	new_str = (char *)malloc((size + 1) * sizeof(char));
 	if (new_str == NULL)
 		return (NULL);
 	while (str1[++index])
-		
 
 }
 
