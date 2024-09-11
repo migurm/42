@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: miguelr <miguelr@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:22:17 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/11 09:44:56 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:40:45 by miguelr          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,39 @@ Devolver los segmentos del archivo necesarios hasta encontrar el salto de linea 
 Recibe: lo leido hasta ahora que estaba guardando estaticamente, y el file descriptor del archivo a leer
 Devuelve: la cadena de caracteres que puede contener \n
 */
-char    *rellenar_buffer_hasta_tener_NL_o_EOF(char *buffer, int fd)
-{ //PENDIENTE DE TERMINAR
+char    *fill_buffer(char *buffer, int fd)
+{
     char    *filled_buffer;
     int     readed_lines;
+    char    *temp;
 
-    //Recibimos un buffer que puede estar vacío... o no
-    //A este buffer, le vamos a ir añadiendo lecturas 
-    //Hasta encontrar o el fin del archivo, o el salto de línea
-	//Inicializamos la variable filled_buffer
 	filled_buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!filled_buffer)
 		return (NULL);
 
     while (!ft_strchar(buffer, '\n'))
-    {//Si viene nulo, es que no hay terminador y salto de línea
-	//En ese caso leemos y tiramos en el buffer auxiliar lo leído
+    {
 		readed_lines = read(fd, filled_buffer, BUFFER_SIZE);
-		//Si readed_lines viene menor que el BUFFER_SIZE...se acabó
-		//Tenemos que prever los casos de readed_lines -1 y 0 en este punto.
 		if (readed_lines < 0)
 		{
 			free(filled_buffer);
 			return (NULL);
 		}
 		else if (readed_lines == 0)
-			break; //Arriba soldado, nos largamos
+			break;
 
+        filled_buffer[readed_lines] = '\0';
+        temp = buffer;
 		buffer = ft_strjoin(buffer, filled_buffer);
-		//Unimos ambos buffers 
+		//Unimos ambos buffers y liberamos el primero
+        free(temp);
+        if (!buffer) //Si no podemos unir
+        {
+            free(filled_buffer);
+            return (NULL);
+        }
     }
+    free(filled_buffer);
 	return (buffer); // Cuando hayamos encontrado el fin o
 	// el salto de línea, devolvemos la cadena resultante.
 }
@@ -57,27 +60,70 @@ Recibe: el buffer
 Devuelve: La linea (con el salto de linea)
 Si no encuentra el salto de linea en el buffer lo devuelve al completo
 */
-char    *extraer_linea(char *buffer)
-{//PENDIENTE DE TERMINAR
+char    *get_clear_line(char *buffer)
+//PENDIENTE DE TERMINAR
 	//Vamos a recibir aquí una cadena de caracteres que seguramente tenga
 	//en una posición intermedia el salto de línea... o sea el final del texto.
 	//Tenemos que devolver la cadena de caracteres que hay antes del salto de linea o fin
-	char	*line;
-	int		index;
+{
+    char	*line;
+    int		index;
 
-    line = (char *)malloc(sizeof(char) * (index + 2));
-    if (!line)
-        return (NULL);
-	index = -1;
-	while (buffer[++index] && buffer[index] != '\n')
+    index = -1;
+    
+    // Contamos cuántos caracteres hay hasta el salto de línea o fin del buffer
+    while (buffer[++index] && buffer[index] != '\n')
 	{
-		line[index] = buffer[index];
-	}
-    line[index++] = '\n';
-    line[index] = '\0';
-    return (line);
+	}		
+    // Reservamos memoria para la línea, incluyendo espacio para el '\n' y el '\0'
+    line = (char *)malloc(sizeof(char) * (index + 2)); // +2 por el '\n' y '\0'
+    if (!line)
+		return (NULL);
 
+    // Copiamos los caracteres del buffer a line
+    index = 0;
+    while (buffer[index] && buffer[index] != '\n')
+    {
+        line[index] = buffer[index];
+        index++;
+    }
+
+    // Si encontramos un '\n', también lo copiamos a line
+    if (buffer[index] == '\n')
+    {
+        line[index] = '\n';
+        index++;
+    }
+
+    // Añadimos el terminador nulo '\0'
+    line[index] = '\0';
+
+    return (line);
 }
+
+
+/*
+que causará un comportamiento indefinido (por ejemplo, un error de segmentación). Debes asignar suficiente memoria para line antes de llenarla con los caracteres del buffer.
+
+Te dejo un ejemplo corregido de la función extraer_linea:
+
+c
+Copy code
+char *extraer_linea(char *buffer)
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 Quitar del buffer los caracteres que se encuentran antes del salto de linea (incluído)
@@ -85,7 +131,7 @@ Recibe: el antiguo buffer
 Devuelve: el nuevo buffer (el antiguo ha sido liberado con free)
 Si no hay salto de linea, se devuelve NULL.
 */
-char    *limpiar_estatica(char *old_buffer)
+char    *clean_buffer(char *old_buffer)
 { 	//PENDIENTE DE TERMINAR
 	//Liberar antiguo y reservar memoria para el nuevo.
     //Va a recibir un string que contendrá alomejor el salto de línea, tenemos q almacenar
@@ -102,6 +148,11 @@ char    *limpiar_estatica(char *old_buffer)
 
     new_buffer = ft_strdup(&old_buffer[start + 1]);
     free(old_buffer);
+    if (*new_buffer == '\0')
+    {
+        free(new_buffer);
+        return (NULL);
+    }
     return (new_buffer);
 }
 
@@ -112,17 +163,21 @@ char    *get_next_line(int fd)
 
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (free(buffer), NULL);
-    buffer = rellenar_buffer_hasta_tener_NL_o_EOF(buffer, fd);
+    buffer = fill_buffer(buffer, fd);
     if (buffer == NULL)
         return (NULL);
-    line = extraer_linea(buffer);
-    buffer = limpiar_estatica(buffer);
+    line = get_clear_line(buffer);
+    buffer = clean_buffer(buffer);
     return (line);
 }
+
+
 
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdio.h>
+/*
 int main(void) {
     char *file = "texto.txt";
 
@@ -141,4 +196,4 @@ int main(void) {
     close(fd);
 
     return (42);
-}
+}*/

@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: miguelr <miguelr@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:50:23 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/11 09:44:42 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:04:53 by miguelr          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include <unistd.h> 
+#include <stdlib.h>
 /*
 Funciones auxiliares
 */
@@ -45,6 +48,8 @@ char	*ft_strchar(const char *str, int c)
 {
 	int	index;
 
+	if (!str)
+		return (NULL);
 	index = -1;
 	while (str[++index])
 	{
@@ -112,7 +117,6 @@ char	*ft_strjoin(char *str1, char *str2)
 	while (str2[++j])
 		new_str[i + j] = str2[j];
 	new_str[i + j] = '\0';
-	free(str1);
 	return (new_str);
 }
 
