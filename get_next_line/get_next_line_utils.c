@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:50:23 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/10 11:29:34 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/09/11 09:44:42 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ char	*ft_strchar(const char *str, int c)
 		if (str[index] == (char) c)
 			return ((char *)&str[index]);
 	}
-	if (str[index] == '\0')
-		return (str[index]);
 	return (NULL);
 }
 /*
@@ -95,17 +93,27 @@ de ambas. También ha de liberar la primera cadena str1 para evitar fugas de mem
 
 char	*ft_strjoin(char *str1, char *str2)
 {
-    int		size;
 	char	*new_str;
-	int		index;
+	int		i;
+	int		j;
+	//Comprobamos si alguna de las dos no viene correcta
+	i = -1;
+	j = -1;
+	if (!str1)
+		return (ft_strdup(str2));
+	if (!str2)
+		return (ft_strdup(str1));
 
-	size = (ft_strlen(str1) + ft_strlen(str2));
-	new_str = (char *)malloc((size + 1) * sizeof(char));
-	if (new_str == NULL)
+	new_str = malloc(ft_strlen(str1) + ft_strlen(str2) + 1);
+	if (!new_str)
 		return (NULL);
-	while (str1[++index])
-
+	while (str1[++i])
+		new_str[i] = str1[i];
+	while (str2[++j])
+		new_str[i + j] = str2[j];
+	new_str[i + j] = '\0';
+	free(str1);
+	return (new_str);
 }
-
 
 

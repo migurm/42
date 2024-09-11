@@ -6,7 +6,7 @@
 /*   By: mrueda-m <mrueda-m@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:22:17 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/10 11:29:30 by mrueda-m         ###   ########.fr       */
+/*   Updated: 2024/09/11 09:44:56 by mrueda-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,17 @@ char    *extraer_linea(char *buffer)
 	char	*line;
 	int		index;
 
+    line = (char *)malloc(sizeof(char) * (index + 2));
+    if (!line)
+        return (NULL);
 	index = -1;
 	while (buffer[++index] && buffer[index] != '\n')
 	{
 		line[index] = buffer[index];
 	}
+    line[index++] = '\n';
+    line[index] = '\0';
+    return (line);
 
 }
 
@@ -82,8 +88,20 @@ Si no hay salto de linea, se devuelve NULL.
 char    *limpiar_estatica(char *old_buffer)
 { 	//PENDIENTE DE TERMINAR
 	//Liberar antiguo y reservar memoria para el nuevo.
-    char    *new_buffer;
+    //Va a recibir un string que contendrá alomejor el salto de línea, tenemos q almacenar
+    //en el buffer saliente el string resultante iniciado desde este salto de línea...
 
+    char    *new_buffer;
+    int     start;
+
+    start = 0;
+    while (old_buffer[start] && old_buffer[start] != '\n')
+        start++;
+    if (old_buffer[start] == '\0')
+        return (free(old_buffer), NULL);
+
+    new_buffer = ft_strdup(&old_buffer[start + 1]);
+    free(old_buffer);
     return (new_buffer);
 }
 
