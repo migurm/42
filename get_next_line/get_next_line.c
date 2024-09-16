@@ -6,7 +6,7 @@
 /*   By: miguelr <miguelr@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:22:17 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/11 17:40:45 by miguelr          ###   ########.fr       */
+/*   Updated: 2024/09/16 11:07:34 by miguelr          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,26 +100,6 @@ char    *get_clear_line(char *buffer)
 
     return (line);
 }
-
-
-/*
-que causará un comportamiento indefinido (por ejemplo, un error de segmentación). Debes asignar suficiente memoria para line antes de llenarla con los caracteres del buffer.
-
-Te dejo un ejemplo corregido de la función extraer_linea:
-
-c
-Copy code
-char *extraer_linea(char *buffer)
-
-*/
-
-
-
-
-
-
-
-
 
 
 
