@@ -6,7 +6,7 @@
 /*   By: miguelr <miguelr@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:22:17 by mrueda-m          #+#    #+#             */
-/*   Updated: 2024/09/16 13:39:50 by miguelr          ###   ########.fr       */
+/*   Updated: 2024/09/25 11:28:10 by miguelr          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,39 +64,42 @@ char	*get_clear_line(char *buffer)
 	return (line);
 }
 
-char *clean_buffer(char *old_buffer)
+char	*clean_buffer(char *old_buffer)
 {
-    char *new_buffer;
-    int i = 0;
+	char	*new_buffer;
+	int		i;
 
-    while (old_buffer[i] && old_buffer[i] != '\n')
-        i++;
-    if (!old_buffer[i])
-    {
-        free(old_buffer);
-        return (NULL);
-    }
-
-    new_buffer = ft_strdup(&old_buffer[i + 1]);
-    free(old_buffer);
-    return (*new_buffer ? new_buffer : NULL);
+	i = 0;
+	while (old_buffer[i] && old_buffer[i] != '\n')
+		i++;
+	if (!old_buffer[i])
+	{
+		free(old_buffer);
+		return (NULL);
+	}
+	new_buffer = ft_strdup(&old_buffer[i + 1]);
+	free(old_buffer);
+	if (!new_buffer || *new_buffer == '\0')
+	{
+		free(new_buffer);
+		return (NULL);
+	}
+	return (new_buffer);
 }
-
 
 char	*get_next_line(int fd)
 {
-    static char *buffers[FD_MAX];
-    char        *line;
+	static char	*buffers[FD_MAX];
+	char		*line;
 
-    if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FD_MAX)
-        return (NULL);
-
-    buffers[fd] = fill_buffer(buffers[fd], fd);
-    if (!buffers[fd])
-        return (NULL);
-
-    line = get_clear_line(buffers[fd]);
-    buffers[fd] = clean_buffer(buffers[fd]);
-
-    return (line);
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FD_MAX)
+		return (NULL);
+	buffers[fd] = fill_buffer(buffers[fd], fd);
+	if (!buffers[fd])
+		return (NULL);
+	line = get_clear_line(buffers[fd]);
+	buffers[fd] = clean_buffer(buffers[fd]);
+	if (!buffers[fd] && line == NULL)
+		return (NULL);
+	return (line);
 }
