@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     if (!fds)
         return 1;
 
-    // Abre todos los archivos pasados como argumentos
+    // Abre todos los archivos pasados por parámetros
     for (i = 1; i < argc; i++)
     {
         fds[i - 1] = open(argv[i], O_RDONLY);
